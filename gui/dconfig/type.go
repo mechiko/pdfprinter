@@ -46,6 +46,9 @@ func (me *ConfigDialog) onOk() {
 	if per, err := strconv.ParseInt(me.perLabel.Textvariable(), 10, 64); err == nil {
 		me.data.PerLabel = int(per)
 	}
+	if size, err := strconv.ParseInt(me.chunkSize.Textvariable(), 10, 64); err == nil {
+		me.data.ChunkSize = int(size)
+	}
 	tk.Destroy(me.win)
 }
 

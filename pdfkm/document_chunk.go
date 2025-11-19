@@ -11,7 +11,7 @@ import (
 	"github.com/mechiko/utility"
 )
 
-func (k *Pdf) DocumentChunk(model *application.Application, ch chan float64, step float64, chunk *ChunkPack, file string) error {
+func (k *Pdf) DocumentChunk(model *application.Application, chProgress chan float64, step float64, chunk *ChunkPack, file string) error {
 	if k.templateDatamatrix == nil {
 		return fmt.Errorf("Error pdfkm datamatrix template is nil ")
 	}
@@ -49,7 +49,7 @@ func (k *Pdf) DocumentChunk(model *application.Application, ch chan float64, ste
 				return fmt.Errorf("add datamatrix KM in page (idx %d): %w", k.iChunkAll, err)
 			}
 
-			k.SendProgress(ch, step*float64(k.iChunkAll))
+			k.SendProgress(chProgress, step*float64(k.iChunkAll))
 		}
 	case model.PerLabel > 1:
 		packs := slices.Chunk(cises, model.PerLabel)
@@ -70,7 +70,7 @@ func (k *Pdf) DocumentChunk(model *application.Application, ch chan float64, ste
 				return fmt.Errorf("add datamatrix KM in page (idx %d): %w", k.iChunkAll, err)
 			}
 
-			k.SendProgress(ch, step*float64(k.iChunkAll))
+			k.SendProgress(chProgress, step*float64(k.iChunkAll))
 		}
 	}
 

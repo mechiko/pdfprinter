@@ -2,8 +2,10 @@ package gui
 
 import (
 	"fmt"
+	"path/filepath"
 	"pdfprinter/pdfkm"
 	"pdfprinter/reductor"
+	"time"
 
 	"github.com/mechiko/utility"
 )
@@ -66,7 +68,10 @@ func (a *GuiApp) generate() {
 		return
 	}
 	// запрашиваем имя выходного файла и пути
-	fileNamePdf := utility.TimeFileName(model.MarkTemplate) + ".pdf"
+	filenameCis := filepath.Base(model.FileCIS)
+	extensionCis := filepath.Ext(model.FileCIS)
+	fileBaseName := filenameCis[:len(filenameCis)-len(extensionCis)]
+	fileNamePdf := utility.TimeFileName(fileBaseName) + ".pdf"
 	fileNamePdfSelect, err := utility.DialogSaveFile(utility.Pdf, fileNamePdf, ".")
 	if err != nil {
 		logerr("генерация пдф: выбор пути для сохранения PDF", err)
@@ -79,6 +84,7 @@ func (a *GuiApp) generate() {
 		a.SendError(fmt.Sprintf("генерация пдф: ошибка сохранения модели %s", err.Error()))
 		return
 	}
+	startgen := time.Now()
 	// сплит на блоки по chunksize
 	err = pdfGenerator.ChunkSplit(model)
 	if err != nil {
@@ -99,7 +105,8 @@ func (a *GuiApp) generate() {
 		return
 	}
 
-	a.SendLog("сгенерированы файлы:")
+	since := fmt.Sprintf("%v", time.Since(startgen))
+	a.SendLog("сгенерированы файлы: за " + since)
 	for _, file := range pdfGenerator.Files() {
 		a.SendLog(file)
 	}

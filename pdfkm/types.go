@@ -104,6 +104,8 @@ func (k *Pdf) Reset() {
 	k.errors = make([]string, 0)
 	k.warnings = make([]string, 0)
 	k.lastSSCC = 0
+	k.Chunks = make(map[string]*ChunkPack)
+	k.OrderChunks = make([]string, 0)
 }
 
 func (k *Pdf) LastSSCC() int {
