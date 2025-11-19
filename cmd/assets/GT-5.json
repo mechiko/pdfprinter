@@ -1,0 +1,75 @@
+{
+  "Name": "90x60 GT-5",
+  "PageWidth": 90,
+  "PageHeight": 60,
+  "Rows": {
+    "01": [
+      {
+        "row_height": 10,
+		"top": 3,
+		"value": "CAESAR PREMIUM GT",
+		"style": "B",
+		"font_size": 15,
+		"align": "C",
+		"family": "Arial"
+	  }
+	],
+    "02": [
+      {
+        "row_height": 28,
+		"top": 4,
+		"value": "5W-40 A3/B4",
+		"style": "B",
+		"font_size": 37,
+		"align": "C",
+		"family": "Arial"
+	  }
+	],
+    "05": [
+      {
+        "row_height": 16,
+        "col_width": 3,
+        "left": 3,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "0",
+        "image_debug": false
+      },
+      {
+        "row_height": 11,
+        "col_width": 3,
+        "left": 2,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "1",
+        "image_debug": false
+      },
+      {
+        "row_height": 11,
+        "col_width": 3,
+        "left": 2,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "2",
+        "image_debug": false
+      },
+      {
+        "row_height": 11,
+        "col_width": 3,
+        "left": 2,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "3",
+        "image_debug": false
+      }
+    ]
+  }
+}

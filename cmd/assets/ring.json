@@ -1,0 +1,19 @@
+{
+  "Name": "15x15 Ring",
+  "PageWidth": 15,
+  "PageHeight": 15,
+  "Margin": {"Top": 2.5, "Left": 2.5},
+  "Rows": {
+    "05": [
+      {
+        "row_height": 10,
+        "left": 0,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "0"
+      }
+    ]
+  }
+}
