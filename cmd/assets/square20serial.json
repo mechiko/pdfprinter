@@ -1,0 +1,26 @@
+{
+  "Name": "20x20 Квадрат + Серийник",
+  "PageWidth": 20,
+  "PageHeight": 20,
+  "Margin": {"Top": 1.5, "Left": 1},
+  "KmPlace": 1,
+  "Rows": {
+    "05": [
+      {
+        "row_height": 15,
+        "left": 1.5,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "0"
+      }
+    ],
+	"06": [{
+    "top": 0.5,
+    "value": "@serial",
+    "font_size": 5.5,
+    "align": "C"
+	}]
+  }
+}

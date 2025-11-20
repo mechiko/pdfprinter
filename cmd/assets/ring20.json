@@ -1,8 +1,8 @@
 {
-  "Name": "15x15 Квадрат",
-  "PageWidth": 15,
-  "PageHeight": 15,
-  "Margin": {"Top": 1.5, "Left": 1.5},
+  "Name": "20x20 Круг",
+  "PageWidth": 20,
+  "PageHeight": 20,
+  "Margin": {"Top": 4, "Left": 0},
   "KmPlace": 1,
   "Rows": {
     "05": [
@@ -11,7 +11,7 @@
         "left": 0,
         "top": 0,
         "percent": 100,
-        "center": false,
+        "center": true,
         "just_reference_width": true,
         "data_matrix": "0"
       }

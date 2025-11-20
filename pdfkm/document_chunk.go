@@ -28,7 +28,7 @@ func (k *Pdf) DocumentChunk(model *application.Application, chProgress chan floa
 		party = string(r[:2])
 	}
 	if model.PerLabel <= 0 {
-		return fmt.Errorf("PerPallet must be > 0, got %d", model.PerLabel)
+		return fmt.Errorf("PerLabel must be > 0, got %d", model.PerLabel)
 	}
 	switch {
 	case model.PerLabel == 1:
@@ -52,11 +52,13 @@ func (k *Pdf) DocumentChunk(model *application.Application, chProgress chan floa
 			k.SendProgress(chProgress, step*float64(k.iChunkAll))
 		}
 	case model.PerLabel > 1:
+		iLabel := 0
 		packs := slices.Chunk(cises, model.PerLabel)
 		for ciss := range packs {
 			// генерируем этикетку по несколько штук
 			k.iChunkAll += model.PerLabel
 			k.iChunkCis += model.PerLabel
+			iLabel++
 			// генерируем КМ
 			err = pdfDocument.SetVars("party", party)
 			if err != nil {
@@ -67,7 +69,7 @@ func (k *Pdf) DocumentChunk(model *application.Application, chProgress chan floa
 				log.Fatalf("vars add idx %v", err)
 			}
 			if err := pdfDocument.AddPageByTemplate(k.templateDatamatrix, ciss); err != nil {
-				return fmt.Errorf("add datamatrix KM in page (idx %d): %w", k.iChunkAll, err)
+				return fmt.Errorf("add datamatrix KM in page %d: %w", iLabel, err)
 			}
 
 			k.SendProgress(chProgress, step*float64(k.iChunkAll))

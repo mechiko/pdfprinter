@@ -1,7 +1,8 @@
 {
-  "Name": "90x60 GT-1",
+  "Name": "90x60 GT-1 x4",
   "PageWidth": 90,
   "PageHeight": 60,
+  "KmPlace": 4,
   "Rows": {
     "01": [
       {

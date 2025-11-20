@@ -24,7 +24,7 @@ func (k *Pdf) Document(model *application.Application, ch chan float64) error {
 	for _, file := range k.OrderChunks {
 		chunk := k.Chunks[file]
 		if err := k.DocumentChunk(model, ch, step, chunk, file); err != nil {
-			return fmt.Errorf("ошибка генерации пдф блока %s %w", file, err)
+			return fmt.Errorf("file %s %w", file, err)
 		}
 		iChunk++
 	}

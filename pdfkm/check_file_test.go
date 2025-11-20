@@ -20,7 +20,7 @@ func TestCheck(t *testing.T) {
 	for _, tt := range testsNew {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := CheckFile(tt.file)
+			_, _, err := CheckFile(tt.file)
 			if tt.err {
 				assert.NotNil(t, err, "ожидаем ошибку")
 			} else {

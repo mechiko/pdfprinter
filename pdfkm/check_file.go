@@ -7,21 +7,22 @@ import (
 )
 
 // проверяем наличие файла
-func CheckFile(file string) (size int, err error) {
+func CheckFile(file string) (cis string, size int, err error) {
 	if file == "" {
-		return 0, fmt.Errorf("file name empty")
+		return "", 0, fmt.Errorf("file name empty")
 	}
+	var cisArray []string
 	if utility.PathOrFileExists(file) {
-		cisArray, err := ReadTextStringArrayFirstColon(file)
+		cisArray, err = ReadTextStringArrayFirstColon(file)
 		if err != nil {
-			return 0, fmt.Errorf("read file %s error %w", file, err)
+			return "", 0, fmt.Errorf("read file %s error %w", file, err)
 		}
 		size = len(cisArray)
 		if size == 0 {
-			return 0, fmt.Errorf("read file KM 0")
+			return "", 0, fmt.Errorf("read file KM 0")
 		}
 	}
-	return size, nil
+	return cisArray[0], size, nil
 }
 
 // проверяем наличие файлов, cis файл обязателен, perPack обязателен

@@ -15,6 +15,7 @@ func (me *ConfigDialog) makeInputs() {
 	me.inputFrame = me.win.TFrame()
 	me.perLabel = me.inputFrame.TEntry(tk.Textvariable(fmt.Sprintf("%d", me.data.PerLabel)))
 	me.chunkSize = me.inputFrame.TEntry(tk.Textvariable(fmt.Sprintf("%d", me.data.ChunkSize)))
+	me.perLabel.Configure(tk.State("disabled"))
 	// tmplts := []string{""}
 	// if asts, err := assets.New("assets"); err == nil {
 	// 	if t, err := asts.Templates(); err == nil {

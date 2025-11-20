@@ -16,7 +16,7 @@
           "CGO_ENABLED": "1"
         },
         "args": [
-          "-filecis", "${workspaceFolder}/.DATA/а3в4.csv"
+          "-filecis", "${workspaceFolder}/.DATA/соки.csv"
           // "-filekigu", "${workspaceFolder}/.DATA/KIGU.csv",
           // "-home"
         ],

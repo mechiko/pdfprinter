@@ -79,6 +79,7 @@ func (p *pdfProc) addStringColumn(col core.Col, colTempl *domain.RowPrimitive, c
 	value = strings.ReplaceAll(value, "@idx", idx)
 	ean13 := strings.Trim(cis.Gtin, "0")
 	value = strings.ReplaceAll(value, "@ean", ean13)
+	value = strings.ReplaceAll(value, "@serial", cis.Serial)
 	col.Add(text.New(value, colTempl.PropsText()))
 	return nil
 }
@@ -98,6 +99,7 @@ func (p *pdfProc) addArrayStringColumn(col core.Col, colTempl *domain.RowPrimiti
 		value := ""
 		if val.Value != "" {
 			value = strings.ReplaceAll(val.Value, "@party", party)
+			value = strings.ReplaceAll(value, "@serial", cis.Serial)
 			value = strings.ReplaceAll(value, "@idx", idx)
 			ean13 := strings.Trim(cis.Gtin, "0")
 			ean13 = fmt.Sprintf("%s  %s  %s", ean13[:1], ean13[1:7], ean13[7:])

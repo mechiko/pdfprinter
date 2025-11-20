@@ -12,9 +12,9 @@ import (
 
 // в станицу передаются только cis для нее
 func (p *pdfProc) Page(t *domain.MarkTemplate, ciss []*utility.CisInfo) (core.Page, error) {
-	// if len(ciss) != 4 {
-	// 	return nil, fmt.Errorf("len cis must be 4")
-	// }
+	if len(ciss) != t.KmPlace {
+		return nil, fmt.Errorf("мест в шаблоне %d а марок передано %d", t.KmPlace, len(ciss))
+	}
 	pg := page.New()
 	rowKeys := make([]string, 0, len(t.Rows))
 	for k := range t.Rows {

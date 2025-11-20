@@ -3,6 +3,7 @@ package pdfproc
 import (
 	"fmt"
 	"pdfprinter/domain"
+	"strings"
 
 	"github.com/johnfercher/maroto/v2/pkg/components/col"
 	"github.com/johnfercher/maroto/v2/pkg/components/image"
@@ -23,8 +24,22 @@ func (p *pdfProc) parseSingleRow(pg core.Page, row1 *domain.RowPrimitive, ciss [
 		)
 	} else {
 		if row1.RowHeight == 0 {
+			cis := ciss[0]
+			party, err := p.vars.Get("party")
+			if err != nil {
+				return fmt.Errorf("page vars party get error %w", err)
+			}
+			idx, err := p.vars.Get("idx")
+			if err != nil {
+				return fmt.Errorf("page vars idx get error %w", err)
+			}
+			value := strings.ReplaceAll(row1.Value, "@party", party)
+			value = strings.ReplaceAll(value, "@idx", idx)
+			ean13 := strings.Trim(cis.Gtin, "0")
+			value = strings.ReplaceAll(value, "@ean", ean13)
+			value = strings.ReplaceAll(value, "@serial", cis.Serial)
 			pg.Add(
-				text.NewAutoRow(row1.Value, row1.PropsText()),
+				text.NewAutoRow(value, row1.PropsText()),
 			)
 		} else {
 			cis := ciss[0]
@@ -43,9 +58,22 @@ func (p *pdfProc) parseSingleRow(pg core.Page, row1 *domain.RowPrimitive, ciss [
 				)
 
 			} else {
+				party, err := p.vars.Get("party")
+				if err != nil {
+					return fmt.Errorf("page vars party get error %w", err)
+				}
+				idx, err := p.vars.Get("idx")
+				if err != nil {
+					return fmt.Errorf("page vars idx get error %w", err)
+				}
+				value := strings.ReplaceAll(row1.Value, "@party", party)
+				value = strings.ReplaceAll(value, "@idx", idx)
+				ean13 := strings.Trim(cis.Gtin, "0")
+				value = strings.ReplaceAll(value, "@ean", ean13)
+				value = strings.ReplaceAll(value, "@serial", cis.Serial)
 				pg.Add(
 					row.New(row1.RowHeight).Add(
-						text.NewCol(12, row1.Value, row1.PropsText()),
+						text.NewCol(12, value, row1.PropsText()),
 					),
 				)
 			}

@@ -96,12 +96,14 @@ type Margin struct {
 // если примитивов больше одного то это строка из колонок
 // если RowHeight 0 то это text.NewAutoRow
 // если Value пусто это строка выравнивания с высотой
+// KmPlace мест для датаматрикс на одной этикетке
 type MarkTemplate struct {
 	Name       string
 	PageWidth  float64
 	PageHeight float64
 	Rows       map[string][]*RowPrimitive
 	Margin     Margin
+	KmPlace    int
 }
 
 func NewMarkTemplate(tmpl []byte) (*MarkTemplate, error) {
@@ -118,6 +120,9 @@ func NewMarkTemplate(tmpl []byte) (*MarkTemplate, error) {
 	}
 	if len(mt.Rows) == 0 {
 		return nil, fmt.Errorf("mark template: rows are empty")
+	}
+	if mt.KmPlace == 0 {
+		mt.KmPlace = 1
 	}
 	return mt, nil
 }

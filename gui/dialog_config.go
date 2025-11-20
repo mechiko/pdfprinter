@@ -15,7 +15,7 @@ func (a *GuiApp) onConfig() {
 	dlg := dconfig.NewConfigDialog(&data)
 	dlg.ShowModal()
 	if data.Ok {
-		model.PerLabel = data.PerLabel
+		// model.PerLabel = data.PerLabel
 		// model.MarkTemplate = data.MarkTemplate
 		model.ChunkSize = data.ChunkSize
 		if err := model.SyncToStore(a); err != nil {

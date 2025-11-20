@@ -4,7 +4,6 @@ var TomlConfig = []byte(`
 # This is a TOML document.
 ssccprefix = "146024436369"
 ssccstartnumber = 1
-perlabel = 4
 marktemplate = ""
 packtemplate = ""
 chunksize = 250
@@ -24,7 +23,6 @@ license = "f7bc886d-bbcd-4ce9-845f-1209d87d406d"
 type Configuration struct {
 	SsccPrefix      string `mapstructure:"ssccprefix" toml:"ssccprefix" json:"ssccprefix"`
 	SsccStartNumber int    `mapstructure:"ssccstartnumber" toml:"ssccstartnumber" json:"ssccstartnumber"`
-	PerLabel        int    `mapstructure:"perlabel" toml:"perlabel" json:"perlabel"`
 	MarkTemplate    string `mapstructure:"marktemplate" toml:"marktemplate" json:"marktemplate"`
 	PackTemplate    string `mapstructure:"packtemplate" toml:"packtemplate" json:"packtemplate"`
 	Party           string `mapstructure:"party" toml:"party" json:"party"`

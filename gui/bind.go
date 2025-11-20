@@ -1,6 +1,7 @@
 package gui
 
 import (
+	"fmt"
 	"pdfprinter/domain"
 	"pdfprinter/domain/models/application"
 	"pdfprinter/reductor"
@@ -28,18 +29,23 @@ func (a *GuiApp) makeBindings() {
 	// 	}
 	// }))
 	tk.Bind(a.datamatrixCombo, "<<ComboboxSelected>>", tk.Command(func() {
-		mdl, err := reductor.Instance().Model(domain.Application)
+		appModel, err := GetModel()
 		if err != nil {
-			a.Logger().Errorf("get model error: %v", err)
+			a.logerr("get model", err)
 			return
 		}
-		appModel, ok := mdl.(*application.Application)
-		if !ok {
-			a.Logger().Errorf("bad type model application")
+		tmpl, err := appModel.SetMarkTemplate(a.datamatrixCombo.Textvariable())
+		if err != nil {
+			a.logerr("model set marktemplate", err)
 			return
 		}
-		appModel.MarkTemplate = a.datamatrixCombo.Textvariable()
-		reductor.Instance().SetModel(appModel, false)
+		str := fmt.Sprintf("шаблон: размер H:%0.0f W:%0.0f марок на этикетке:%d", tmpl.PageHeight, tmpl.PageWidth, tmpl.KmPlace)
+		a.SendLog(str)
+		err = reductor.Instance().SetModel(appModel, false)
+		if err != nil {
+			a.logerr("update model", err)
+			return
+		}
 	}))
 	tk.Bind(a.chunkSize, "<KeyRelease>", tk.Command(func(e *tk.Event) {
 		txt := a.chunkSize.Textvariable()

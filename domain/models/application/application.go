@@ -3,6 +3,7 @@ package application
 import (
 	"fmt"
 	"path/filepath"
+	"pdfprinter/assets"
 	"pdfprinter/domain"
 )
 
@@ -51,10 +52,10 @@ func (a *Application) SyncToStore(app domain.Apper) (err error) {
 	if err != nil {
 		return fmt.Errorf("model:application save ssccstartnumber to store error %w", err)
 	}
-	err = app.SetOptions("perlabel", a.PerLabel)
-	if err != nil {
-		return fmt.Errorf("model:application save perpallet to store error %w", err)
-	}
+	// err = app.SetOptions("perlabel", a.PerLabel)
+	// if err != nil {
+	// 	return fmt.Errorf("model:application save perpallet to store error %w", err)
+	// }
 	err = app.SetOptions("marktemplate", a.MarkTemplate)
 	if err != nil {
 		return fmt.Errorf("model:application save marktemplate to store error %w", err)
@@ -86,8 +87,11 @@ func (a *Application) ReadState(app domain.Apper) (err error) {
 	a.Debug = app.DebugMode()
 	a.SsccPrefix = opts.SsccPrefix
 	a.SsccStartNumber = opts.SsccStartNumber
-	a.PerLabel = opts.PerLabel
+	a.PerLabel = 1
 	a.MarkTemplate = opts.MarkTemplate
+	if _, err := a.SetMarkTemplate(opts.MarkTemplate); err != nil {
+		a.MarkTemplate = ""
+	}
 	a.PackTemplate = opts.PackTemplate
 	a.Party = opts.Party
 	a.ChunkSize = opts.ChunkSize
@@ -115,4 +119,21 @@ func (a *Application) SetFileBase(file string) {
 	filename := filepath.Base(file)
 	extension := filepath.Ext(file)
 	a.FileBaseName = filename[:len(filename)-len(extension)]
+}
+
+func (a *Application) SetMarkTemplate(tmplt string) (*domain.MarkTemplate, error) {
+	a.MarkTemplate = tmplt
+	assetsList, err := assets.New("assets")
+	if err != nil {
+		return nil, fmt.Errorf("Error assets: %w", err)
+	}
+	tmplDatamatrix, err := assetsList.Template(tmplt)
+	if err != nil {
+		return nil, fmt.Errorf("Error get assets datamatrix template %s: %w", tmplt, err)
+	}
+	a.PerLabel = tmplDatamatrix.KmPlace
+	if a.PerLabel == 0 {
+		a.PerLabel = 1
+	}
+	return tmplDatamatrix, nil
 }
