@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"fmt"
 	"pdfprinter/domain"
+	"sync"
 	"time"
 
 	tk "modernc.org/tk9.0"
@@ -56,6 +57,8 @@ type GuiApp struct {
 	chunkSize *tk.TEntryWidget
 
 	datamatrixCombo *tk.TComboboxWidget
+
+	lock sync.Mutex
 }
 
 func New(app domain.Apper) (*GuiApp, error) {
@@ -92,14 +95,19 @@ func New(app domain.Apper) (*GuiApp, error) {
 	a.makeBindings()
 	// start ticker only after widgets/layout are ready
 	tk.NewTicker(tick, a.tick)
-	if model.FileCIS != "" {
-		go a.openFileCis(model.FileCIS)
-	}
 	return a, nil
 }
 
 func (a *GuiApp) Run() {
 	tk.App.Center()
+	// before Run() is called and before the GUI event loop starts.
+	// If openFileCis accesses GUI widgets or sends to channels
+	// that are processed by the ticker, this could lead to race conditions or deadlocks
+	model, _ := GetModel()
+	if model.FileCIS != "" {
+		go a.openFileCis(model.FileCIS)
+	}
+
 	tk.WmDeiconify(tk.App)
 	tk.App.Wait()
 }
@@ -120,6 +128,10 @@ func (a *GuiApp) logg(s, e string) {
 }
 
 func (a *GuiApp) onQuitApp() {
+	// If this field is modified by other goroutines (e.g., in the ticker or worker threads),
+	// this creates a data race
+	a.lock.Lock()
+	defer a.lock.Unlock()
 	if a.isProcess {
 		a.logg("", "выход из программы ограничен, запущена обработка")
 		return

@@ -40,8 +40,11 @@ func (a *GuiApp) tick() {
 			}
 		}
 		a.fileLblCis.Configure(tk.Txt(label))
-	case a.isProcess = <-a.stateIsProcess:
-		if a.isProcess {
+	case isProcess := <-a.stateIsProcess:
+		a.lock.Lock()
+		defer a.lock.Unlock()
+		a.isProcess = isProcess
+		if isProcess {
 			a.fileBtnCis.Configure(tk.State("disabled"))
 			a.startButton.Configure(tk.State("disabled"))
 			a.exitButton.Configure(tk.State("disabled"))

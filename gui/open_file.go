@@ -17,14 +17,7 @@ func (a *GuiApp) openFileCis(file string) {
 		a.logerr("gui openFile", err)
 		return
 	}
-	model.FileCIS = file
-	model.SetFileBase(file)
-	err = reductor.Instance().SetModel(model, false)
-	if err != nil {
-		a.logerr("ошибка записи модели в редуктор:", err)
-		return
-	}
-	// a.SendLogClear()
+
 	if file != "" {
 		base := filepath.Base(file)
 		if len(base) > 50 {
@@ -44,11 +37,18 @@ func (a *GuiApp) openFileCis(file string) {
 		}
 		a.SendLog(fmt.Sprintf("размер DM %d ед", sizeCis))
 	}
+	model.FileCIS = file
+	model.SetFileBase(file)
+	err = reductor.Instance().SetModel(model, false)
+	if err != nil {
+		a.logerr("ошибка записи модели в редуктор:", err)
+		return
+	}
 	// устанавливаем состояни отображения gui
 	a.SendSelectedCisFile(model.FileCIS)
 }
 
-// генератор PNG
+// размер DX PNG datamatrix
 func sizeCis(code string) (int, error) {
 	if code == "" {
 		return 0, fmt.Errorf("code is empty")

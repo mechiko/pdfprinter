@@ -15,7 +15,7 @@ func (a *GuiApp) SendError(s string) {
 		// message sent
 	default:
 		// message dropped, log this event
-		a.Logger().Warn("Failed to send error message to GUI logCh: channel full %s", s)
+		a.Logger().Warnf("Failed to send error message to GUI logCh: channel full %s", s)
 	}
 }
 
@@ -31,7 +31,7 @@ func (a *GuiApp) SendLog(s string) {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send log message to GUI logCh: channel full %s", s)
+		a.Logger().Warnf("Failed to send log message to GUI logCh: channel full %s", s)
 	}
 }
 
@@ -41,7 +41,7 @@ func (a *GuiApp) SendProgress(f float64) {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI progresCh: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI progresCh: channel full caller:%s", callerFunctionName())
 	}
 }
 
@@ -51,7 +51,7 @@ func (a *GuiApp) SendIsProcess(f bool) {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI stateIsProcess: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI stateIsProcess: channel full caller:%s", callerFunctionName())
 	}
 }
 
@@ -61,7 +61,7 @@ func (a *GuiApp) SendStart() {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI stateStart: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI stateStart: channel full caller:%s", callerFunctionName())
 	}
 }
 
@@ -71,7 +71,7 @@ func (a *GuiApp) SendLogClear() {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI logClear: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI logClear: channel full caller:%s", callerFunctionName())
 	}
 }
 
@@ -89,7 +89,7 @@ func (a *GuiApp) SendFinish() {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI stateFinish: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI stateFinish: channel full caller:%s", callerFunctionName())
 	}
 }
 
@@ -99,6 +99,6 @@ func (a *GuiApp) SendSelectedCisFile(f string) {
 		// message sent
 	default:
 		// message dropped
-		a.Logger().Debug("Failed to send to GUI stateSelectedCisFile: channel full caller:%s", callerFunctionName())
+		a.Logger().Warnf("Failed to send to GUI stateSelectedCisFile: channel full caller:%s", callerFunctionName())
 	}
 }

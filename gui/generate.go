@@ -51,7 +51,6 @@ func (a *GuiApp) generate() {
 	}
 
 	if err := pdfGenerator.ReadCIS(model); err != nil {
-		model.FileCIS = ""
 		a.logerr("ошибка загрузки файла:", err)
 		return
 	}
