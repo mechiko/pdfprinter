@@ -32,7 +32,13 @@ func New(path string) (*Assets, error) {
 		png:           make(map[string][]byte),
 		templateNames: make(map[string]string),
 	}
-	err := a.load()
+	// сначала пытаемся загрузить embedded
+	err := a.loadEmbed()
+	if err != nil {
+		return nil, fmt.Errorf("assets new error %w", err)
+	}
+	// те что в каталоге будут перекрывать те, что встроеные
+	err = a.load()
 	if err != nil {
 		return nil, fmt.Errorf("assets new error %w", err)
 	}

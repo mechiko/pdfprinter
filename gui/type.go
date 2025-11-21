@@ -104,7 +104,7 @@ func (a *GuiApp) Run() {
 	// If openFileCis accesses GUI widgets or sends to channels
 	// that are processed by the ticker, this could lead to race conditions or deadlocks
 	model, _ := GetModel()
-	if model.FileCIS != "" {
+	if model != nil && model.FileCIS != "" {
 		go a.openFileCis(model.FileCIS)
 	}
 

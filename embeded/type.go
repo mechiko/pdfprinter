@@ -1,7 +1,7 @@
 package embeded
 
 import (
-	_ "embed"
+	"embed"
 )
 
 //go:embed RobotoCondensed-Regular.ttf
@@ -21,3 +21,6 @@ var TestCisFile string
 
 //go:embed kigu.csv
 var TestKiguFile string
+
+//go:embed assets
+var EmbeddedAssets embed.FS

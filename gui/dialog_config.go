@@ -7,6 +7,9 @@ import (
 
 func (a *GuiApp) onConfig() {
 	model, _ := GetModel()
+	if model == nil {
+		return
+	}
 	data := dconfig.ConfigDialogData{
 		PerLabel:     model.PerLabel,
 		MarkTemplate: model.MarkTemplate,

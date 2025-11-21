@@ -45,13 +45,18 @@ func (a *GuiApp) SendProgress(f float64) {
 	}
 }
 
+// really want "last value wins", not "drop when full"
 func (a *GuiApp) SendIsProcess(f bool) {
 	select {
 	case a.stateIsProcess <- f:
 		// message sent
 	default:
-		// message dropped
-		a.Logger().Warnf("Failed to send to GUI stateIsProcess: channel full caller:%s", callerFunctionName())
+		// channel full: drop stale value and ensure latest state is delivered
+		select {
+		case <-a.stateIsProcess:
+		default:
+		}
+		a.stateIsProcess <- f
 	}
 }
 
