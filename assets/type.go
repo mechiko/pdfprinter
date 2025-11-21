@@ -22,9 +22,6 @@ type Assets struct {
 }
 
 func New(path string) (*Assets, error) {
-	if !utility.PathOrFileExists(path) {
-		return nil, fmt.Errorf("%s not found", path)
-	}
 	a := &Assets{
 		path:          path,
 		jpg:           make(map[string][]byte),
@@ -37,10 +34,11 @@ func New(path string) (*Assets, error) {
 	if err != nil {
 		return nil, fmt.Errorf("assets new error %w", err)
 	}
-	// те что в каталоге будут перекрывать те, что встроеные
-	err = a.load()
-	if err != nil {
-		return nil, fmt.Errorf("assets new error %w", err)
+	// те что в каталоге будут перекрывать те, что встроеные (если каталог есть)
+	if utility.PathOrFileExists(path) {
+		if err = a.load(); err != nil {
+			return nil, fmt.Errorf("assets new error %w", err)
+		}
 	}
 	return a, nil
 }
@@ -129,9 +127,7 @@ func (a *Assets) load() (err error) {
 				if out.Name == "" {
 					return fmt.Errorf("new marktemplate name empty")
 				}
-				if _, ok := a.templateNames[out.Name]; ok {
-					return fmt.Errorf("marktemplate %s alredy present", out.Name)
-				}
+				// Directory templates override embedded ones with the same logical name.
 				a.templateNames[out.Name] = base
 			}
 		}
