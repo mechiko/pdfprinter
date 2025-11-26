@@ -48,9 +48,9 @@ func (p *pdfProc) dmImg(code string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
-	check := p.reader(code, scaledCheck)
-	if !check {
-		return nil, fmt.Errorf("not equal png with code")
+	err = p.reader(code, scaledCheck)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
 	}
 	var b bytes.Buffer
 	// jpeg.Encode(&b, scaled, nil)
