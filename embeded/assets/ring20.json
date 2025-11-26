@@ -1,0 +1,20 @@
+{
+  "Name": "20x20 Круг",
+  "PageWidth": 20,
+  "PageHeight": 20,
+  "Margin": {"Top": 4, "Left": 0},
+  "KmPlace": 1,
+  "Rows": {
+    "05": [
+      {
+        "row_height": 12,
+        "left": 0,
+        "top": 0,
+        "percent": 100,
+        "center": true,
+        "just_reference_width": true,
+        "data_matrix": "0"
+      }
+    ]
+  }
+}

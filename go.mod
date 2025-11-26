@@ -7,6 +7,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/johnfercher/maroto/v2 v2.3.1
 	github.com/juliankoehn/barcode v0.0.0-20200418173355-72e133c1f72f
+	github.com/mechiko/dmxing v0.0.0-20251125201543-35e439f018b8
 	github.com/mechiko/utility v0.0.0-20250901141646-cc9c20f08412
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -52,7 +53,8 @@ require (
 	golang.org/x/image v0.26.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
-	golang.org/x/text v0.28.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
+	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/fileutil v1.3.40 // indirect

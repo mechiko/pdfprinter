@@ -1,0 +1,20 @@
+{
+  "Name": "15x15 Круг",
+  "PageWidth": 15,
+  "PageHeight": 15,
+  "Margin": {"Top": 2.5, "Left": 2.5},
+  "KmPlace": 1,
+  "Rows": {
+    "05": [
+      {
+        "row_height": 10,
+        "left": 0,
+        "top": 0,
+        "percent": 100,
+        "center": false,
+        "just_reference_width": true,
+        "data_matrix": "0"
+      }
+    ]
+  }
+}
