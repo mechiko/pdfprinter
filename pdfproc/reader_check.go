@@ -1,6 +1,7 @@
 package pdfproc
 
 import (
+	"bytes"
 	"fmt"
 	"image"
 	_ "image/jpeg"
@@ -11,7 +12,11 @@ import (
 	"github.com/mechiko/dmxing/datamatrix"
 )
 
-func (p *pdfProc) reader(code string, img image.Image) error {
+func (p *pdfProc) reader(code string, png bytes.Buffer) error {
+	img, _, err := image.Decode(&png)
+	if err != nil {
+		return fmt.Errorf("Unable to convert to DataMatrix-code to bitmap: %s", err)
+	}
 	// prepare BinaryBitmap
 	bmp, err := dmxing.NewBinaryBitmapFromImage(img)
 	if err != nil {

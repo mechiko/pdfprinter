@@ -44,17 +44,35 @@ func (p *pdfProc) dmImg(code string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
-	scaledCheck, err := barcode.Scale(bcImg, 50, 50)
+	delta := (dx * 4) + (dx / 3)
+	scaledCheck, err := barcode.Scale(bcImg, delta, delta)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
-	err = p.reader(code, scaledCheck)
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-	var b bytes.Buffer
+	// err = p.reader(code, scaledCheck)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("%w", err)
+	// }
+	var b, bc bytes.Buffer
 	// jpeg.Encode(&b, scaled, nil)
-	png.Encode(&b, scaled)
+	err = png.Encode(&b, scaled)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+	err = png.Encode(&bc, scaledCheck)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+	// if err := os.WriteFile("file.png", b.Bytes(), 0666); err != nil {
+	// 	return nil, fmt.Errorf("%w", err)
+	// }
+	// if err := os.WriteFile("check.png", bc.Bytes(), 0666); err != nil {
+	// 	return nil, fmt.Errorf("%w", err)
+	// }
+	err = p.reader(code, bc)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
 	return forceTo8BitPNG(b.Bytes()), nil
 }
 
