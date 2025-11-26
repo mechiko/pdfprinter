@@ -46,7 +46,7 @@ func (p *pdfProc) parseSingleRow(pg core.Page, row1 *domain.RowPrimitive, ciss [
 			colNew := col.New(12)
 			if row1.DataMatrix != "" {
 				fnc := cis.FNC1()
-				img, err := dmImg(fnc)
+				img, err := p.dmImg(fnc)
 				if err != nil {
 					return fmt.Errorf("%w", err)
 				}

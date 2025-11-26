@@ -30,7 +30,7 @@ func barImg(code string) ([]byte, error) {
 }
 
 // генератор PNG
-func dmImg(code string) ([]byte, error) {
+func (p *pdfProc) dmImg(code string) ([]byte, error) {
 	if code == "" {
 		return nil, fmt.Errorf("generate datamatrix error: code is empty")
 	}
@@ -43,6 +43,14 @@ func dmImg(code string) ([]byte, error) {
 	scaled, err := barcode.Scale(bcImg, dx, dy)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
+	}
+	scaledCheck, err := barcode.Scale(bcImg, 50, 50)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+	check := p.reader(code, scaledCheck)
+	if !check {
+		return nil, fmt.Errorf("not equal png with code")
 	}
 	var b bytes.Buffer
 	// jpeg.Encode(&b, scaled, nil)

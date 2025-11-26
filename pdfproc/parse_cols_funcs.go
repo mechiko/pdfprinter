@@ -25,7 +25,7 @@ func (p *pdfProc) addDatamaxColumn(col core.Col, colTempl *domain.RowPrimitive, 
 	}
 	cis = ciss[indexCis]
 	fnc := cis.FNC1()
-	img, err := dmImg(fnc)
+	img, err := p.dmImg(fnc)
 	if err != nil {
 		return fmt.Errorf("%w", err)
 	}
@@ -47,7 +47,7 @@ func (p *pdfProc) addBarColumn(col core.Col, colTempl *domain.RowPrimitive, ciss
 	return nil
 }
 
-func (p *pdfProc) addJpgColumn(col core.Col, colTempl *domain.RowPrimitive, ciss []*utility.CisInfo) error {
+func (p *pdfProc) addJpgColumn(col core.Col, colTempl *domain.RowPrimitive, _ []*utility.CisInfo) error {
 	if p.assets != nil {
 		img, err := p.assets.Jpg(colTempl.Image)
 		if err != nil {
@@ -108,7 +108,7 @@ func (p *pdfProc) addArrayStringColumn(col core.Col, colTempl *domain.RowPrimiti
 		}
 		if val.DataMatrix != "" {
 			fnc := cis.FNC1()
-			img, err := dmImg(fnc)
+			img, err := p.dmImg(fnc)
 			if err != nil {
 				return fmt.Errorf("%w", err)
 			}
