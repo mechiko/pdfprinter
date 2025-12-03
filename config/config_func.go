@@ -58,16 +58,3 @@ func (c *Config) SetInConfig(key string, value interface{}) error {
 func (c *Config) Warning() string {
 	return c.warning
 }
-
-func (c *Config) DatabaseByKey(key string) *DatabaseConfiguration {
-	return &DatabaseConfiguration{
-		Driver: c.GetKeyString(fmt.Sprintf("%s.driver", key)),
-		File:   c.GetKeyString(fmt.Sprintf("%s.file", key)),
-		DbName: c.GetKeyString(fmt.Sprintf("%s.dbname", key)),
-		User:   c.GetKeyString(fmt.Sprintf("%s.user", key)),
-		Pass:   c.GetKeyString(fmt.Sprintf("%s.pass", key)),
-		Host:   c.GetKeyString(fmt.Sprintf("%s.host", key)),
-		Port:   c.GetKeyString(fmt.Sprintf("%s.port", key)),
-	}
-
-}

@@ -11,6 +11,7 @@ import (
 	"pdfprinter/config"
 	"pdfprinter/domain/models/application"
 	"pdfprinter/gui"
+	"pdfprinter/licenser"
 	"pdfprinter/reductor"
 	"pdfprinter/zaplog"
 
@@ -20,8 +21,8 @@ import (
 var fileExe string
 var dir string
 
-// если home true то папка создается локально
-var home = flag.Bool("home", false, "")
+// если local true то папка создается локально
+var local = flag.Bool("local", false, "")
 var filecis = flag.String("filecis", "", "file to parse xlsx")
 
 func init() {
@@ -45,7 +46,7 @@ func errMessageExit(title string, errDescription string) {
 }
 
 func main() {
-	cfg, err := config.New("", *home)
+	cfg, err := config.New("", !*local)
 	if err != nil {
 		errMessageExit("ошибка конфигурации", err.Error())
 	}
@@ -89,7 +90,12 @@ func main() {
 		errProcessExit("Ошибка создания редуктора", err.Error())
 	}
 
-	appModel, err := application.New(app)
+	lic, err := licenser.New(licenser.MAC, "")
+	if err != nil {
+		errProcessExit("Ошибка лицезии", err.Error())
+	}
+
+	appModel, err := application.New(app, lic)
 	if err != nil {
 		errProcessExit("Ошибка создания модели приложения", err.Error())
 	}

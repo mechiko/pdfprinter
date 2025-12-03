@@ -18,10 +18,10 @@
         "args": [
           "-filecis", "${workspaceFolder}/.DATA/соки.csv"
           // "-filekigu", "${workspaceFolder}/.DATA/KIGU.csv",
-          // "-home"
+          // "-local"
         ],
         "buildFlags": ""
-        },
+        }
     ]
   }
   

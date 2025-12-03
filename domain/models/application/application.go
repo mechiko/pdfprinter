@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"pdfprinter/assets"
 	"pdfprinter/domain"
+	"pdfprinter/licenser"
 )
 
 type Application struct {
@@ -12,7 +13,7 @@ type Application struct {
 	Title   string
 	Output  string
 	Debug   bool
-	License string
+	License *licenser.Licenser
 
 	FileBaseName    string
 	FileBasePath    string
@@ -30,10 +31,11 @@ type Application struct {
 var _ domain.Modeler = (*Application)(nil)
 
 // создаем модель считываем ее состояние и возвращаем указатель
-func New(app domain.Apper) (*Application, error) {
+func New(app domain.Apper, lic *licenser.Licenser) (*Application, error) {
 	model := &Application{
-		model: domain.Application,
-		Title: "Application Title",
+		model:   domain.Application,
+		Title:   "Application Title",
+		License: lic,
 	}
 	if err := model.ReadState(app); err != nil {
 		return nil, fmt.Errorf("model application read state %w", err)

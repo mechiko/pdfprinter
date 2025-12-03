@@ -9,9 +9,12 @@ require (
 	github.com/juliankoehn/barcode v0.0.0-20200418173355-72e133c1f72f
 	github.com/mechiko/dmxing v0.0.0-20251125201543-35e439f018b8
 	github.com/mechiko/utility v0.0.0-20250901141646-cc9c20f08412
+	github.com/mechiko/walk v0.0.0-20230816210514-788aa73102d5
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/zap v1.27.0
+	golang.org/x/crypto v0.37.0
+	golang.org/x/sys v0.36.0
 	modernc.org/tk9.0 v1.73.0
 )
 
@@ -31,6 +34,7 @@ require (
 	github.com/hhrutter/tiff v1.0.1 // indirect
 	github.com/johnfercher/go-tree v1.0.5 // indirect
 	github.com/jung-kurt/gofpdf v1.16.2 // indirect
+	github.com/lxn/win v0.0.0-20210218163916-a377121e959e // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
@@ -52,9 +56,9 @@ require (
 	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b // indirect
 	golang.org/x/image v0.26.0 // indirect
 	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
+	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/fileutil v1.3.40 // indirect
