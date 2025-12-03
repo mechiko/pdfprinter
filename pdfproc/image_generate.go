@@ -67,7 +67,7 @@ func (p *pdfProc) dmImg(code string) ([]byte, error) {
 			return nil, fmt.Errorf("%w", err)
 		}
 	}
-	err = p.reader(code, bc)
+	err = p.reader(code, bc.Bytes())
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
